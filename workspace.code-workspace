@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\..\\wamp64\\www\\CodeIgniter"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\wamp64\\www\\my_boots"
+		}
+	],
+	"settings": {
+		"php.validate.executablePath": "C:\\Users\\Ruhullah\\Desktop\\WebDev\\php-8.0.11-nts-Win32-vs16-x64\\php.exe",
+		"php.executablePath": "C:\\Users\\Ruhullah\\Desktop\\WebDev\\php-8.0.11-nts-Win32-vs16-x64\\php.exe"
+	}
+}
