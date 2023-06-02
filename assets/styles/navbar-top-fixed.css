@@ -1,0 +1,21 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+.completedJob {
+  border: 2px solid green;
+}
+
+.ongoingJob {
+  border: 2px solid yellow;
+}
+
+.overdueJob {
+  border: 2px solid red;
+}
+
+.finishDate {
+  float: right; text-align: right;
+}

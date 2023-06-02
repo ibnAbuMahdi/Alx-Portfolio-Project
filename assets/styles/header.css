@@ -13,3 +13,9 @@ header {
     background: url("../images/logo.png") no-repeat center;
     padding-left: 20px;
 }
+
+.del-item {
+    align-items: end;
+    text-align: end;
+    color: red;
+}

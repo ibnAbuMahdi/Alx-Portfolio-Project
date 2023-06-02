@@ -1,11 +1,9 @@
-
-
 <html>
 <head>
     <title> My View </title>
-    <link rel="stylesheet" href="../../../my_boots/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../my_boots/css/bootstrap-theme.css">
-    <script src="../../../my_boots/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>/my_boots/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/common.css">
+    <script src="../../my_boots/jquery-3.6.0.js"></script>
     <style>
         .box{
             width:100%
