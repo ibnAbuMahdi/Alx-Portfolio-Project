@@ -19,6 +19,7 @@
     
     <!-- scripts -->
     <script src="<?php echo base_url(); ?>assets/scripts/jquery-3.6.0.js"></script>
+    <!-- <link href="<?php echo base_url(); ?>assets/scripts/header_script.php" rel="preload"> -->
     <?php $this->load->view("header_script"); ?>
 
 
@@ -33,40 +34,26 @@
     
     <section>
       <div class="row gy-4">
+        <?php foreach ($temps as $id=>$temp) { ?>
         <div class=col-6>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Template title</h5>
-              <p class="card-text">Some description of the job template that tells what the job is about</p>
-              <a href="#" class="btn btn-primary">Create job</a>
+              <h5 class="card-title"><?php echo $temp['title']; ?></h5>
+              <p class="card-text"><?php echo $temp['notes']; ?></p>
+              <a href="<?php echo base_url('proma/create_job/'.$id); ?>" class="btn btn-primary">Create job</a>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Task1 title</li>
-              <li class="list-group-item">Task2 title</li>
-              <li class="list-group-item">Task3 title</li>
+              <?php foreach ($temp['tasks'] as $title) { ?>
+              <li class="list-group-item"><?php echo $title->title ?></li>
+              <?php } ?>
             </ul>
             <div class="card-footer text-muted">
-              2 weeks (duration)
+              <a href='#'><?php echo $temp['file'] ?></a>
             </div>
           </div>
         </div>
-        <div class=col-6>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Template title</h5>
-              <p class="card-text">Some description of the job template that tells what the job is about</p>
-              <a href="#" class="btn btn-primary">Create job</a>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Task1 title</li>
-              <li class="list-group-item">Task2 title</li>
-              <li class="list-group-item">Task3 title</li>
-            </ul>
-            <div class="card-footer text-muted">
-              2 weeks (duration)
-            </div>
-          </div>
-        </div>
+        <?php } ?>
+        
       </div>
     </section>
 </main>

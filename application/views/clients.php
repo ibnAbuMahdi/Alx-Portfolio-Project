@@ -44,7 +44,7 @@
                 <li class="list-group-item"><?php echo $row->email; ?></li>
               </ul>
               <div class="card-body">
-                <a href="#" class="card-link">Jobs</a>
+                <a href="<?php echo base_url('proma/client_jobs/'.$row->id); ?>" class="card-link">Jobs</a>
               </div>
             </div>
         </div>

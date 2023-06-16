@@ -13,20 +13,20 @@
     <link href="<?php echo base_url(); ?>assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<?php echo base_url(); ?>assets/styles/navbar-top-fixed.css?version=2" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/styles/navbar-top-fixed.css?version=22" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/styles/header.css?version=43" rel="stylesheet">
 
     <!-- scripts -->
     <script src="<?php echo base_url(); ?>assets/scripts/jquery-3.6.0.js"></script>
     <?php $this->load->view("header_script"); ?>
-    <script src="<?php echo base_url(); ?>assets/scripts/jobs.js?version=1"></script>
+    <script src="<?php echo base_url(); ?>assets/scripts/jobs.js"></script>
   </head>
   <body>
       <?php $this->load->view("sidelinks/header"); ?>
     
-<main class="container">
+      <main class="container">
   <div class="bg-light p-5 rounded">
-    <h1 id=jobs>My Jobs</h1>
+    <h1 id=clients><?= $name->fullname ?> Jobs</h1>
     
       <div class="btn-group w-100 align-items-center justify-content-between flex-wrap py-4">
         <div class="dropdown">

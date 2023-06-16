@@ -19,3 +19,11 @@ header {
     text-align: end;
     color: red;
 }
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

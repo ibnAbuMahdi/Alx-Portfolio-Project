@@ -3,8 +3,10 @@ $(function(){
     //def objects
     let template = {};
     let tasks = [];
-    let task = {}
+    let task = {};
+    let files = '';
     let templateFile = new FormData();
+    let tasksFile = new FormData();
     // set active tab
     removeActive();
     $('h1').each((index, item)=>{
@@ -104,10 +106,11 @@ $(function(){
         //add task
     $('#add-task').click(()=>{
         if ($('#task-title').val().length && $('#task-duration').val()){
+            let file = $('#taskFile')[0];
             task['title'] = $('#task-title').val();
             task['duration'] = $('#task-duration').val();
             task['unit'] = $('#duration-unit').val();
-            task['file'] = $('#taskFile').val();
+            tasksFile.append(task.title + task.duration, file.files[0]);
             task['desc'] = $('#task-desc').val();
             let texts = [];
             let longs = [];
@@ -135,6 +138,7 @@ $(function(){
             task['boxes'] = boxes;
             task['radios'] = radios;
             tasks[tasks.length] = task;
+            task = {};
             clearTask();
             alert('Task saved successfully!');
         } else {
@@ -144,39 +148,57 @@ $(function(){
 
     // create 
     $('#create').click(()=>{
+        $('#create').attr('disabled', true);
+        $('#create').parent().prepend($('<div>').addClass(['spinner-border', 'text-primary']).attr('role', 'status'));
         if ($('#temp-title').val().length){
             let fileInput = $('#temp-file')[0];
-            templateFile.append('temp-file', fileInput.files[0]);
+            tasksFile.append('temp_file', fileInput.files[0]);
             template['title'] = $('#temp-title').val();
             template['desc'] = $('#temp-desc').val();
-            template['file'] = templateFile;
             template['tasks'] = tasks;
+            template['files'] = {};
             clearTemplate();
             postTemplate();
         } else {
             alert('Template title cannot be empty!');
         }
+       
     });
     
     function postTemplate() {
         $.ajax({
-            url: '<?php echo site_url(); ?>proma/create_template',
+            url: '<?php echo site_url(); ?>proma/upload_files',
             type: 'POST',
-            data: templateFile, 
+            data: tasksFile, 
             contentType: false,
             cache: false,
             processData: false,
             success: (data)=>{
-                alert(data);
-                if (data == template['title']) {
-                    alert('Template successfully created!'); 
-                } else {
+                if (data !== 'failed' && data !== 'no file') {
+                    template.files = JSON.parse(data);
+                } else if (data === 'failed') {
                     alert('Error creating template');
                 }
-                template = {};
+                tasksFile = new FormData();
             }
+        }).done(()=>{
+            $.ajax({
+            url: '<?php echo site_url(); ?>proma/create_template',
+            type: 'POST',
+            data: {temp: JSON.stringify(template)}, 
+            success: (data)=>{
+                if (data !== 'failed') {
+                    alert('Template successfully created!'); 
+                } 
+                template = {};
+                }
+            });    
+        }).done(()=>{
+            $('#create').attr('disabled', false);
+            $('#create').parent().find('div').remove();
         });
     }
+
     function removeActive(){
         $('#jobs').removeClass('active');
         $('#clients').removeClass('active');

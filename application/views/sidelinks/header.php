@@ -40,7 +40,8 @@
     </div>
   </div>
 </nav>
-<div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="clientModal" tabindex="-1" 
+aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -145,21 +146,21 @@
                 <ul id=boxes></ul>
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <input type="text" class="form-control" placeholder="checkbox title" id="task-box">
+                  <input type="text" class="form-control" placeholder="checkbox input name" id="task-box">
                   <span class="btn btn-primary input-group-text" id="addCheck">Add</span>
                 </div>
                 <ul id=radios></ul>
                 <fieldset class="mb-3">
                   <div class="mb-3 form-check">
                     <input type="radio" name="radios" class="form-check-input" id="exampleRadio2">
-                    <input type="text" class="form-control" placeholder="radio button title" id="task-radio">
+                    <input type="text" class="form-control" placeholder="radio button input name" id="task-radio">
                     <span class="btn btn-primary input-group-text" id="addRadio">Add</span>
                   </div>
                 </fieldset>
               </div>
+              <button type="button" id=add-task class="btn btn-primary">Add task</button>
             </div>
           </div>
-          <button type="button" id=add-task class="btn btn-secondary">Add task</button>
         </form>
         <div class="modal-footer">
           <div class="mb-3">
