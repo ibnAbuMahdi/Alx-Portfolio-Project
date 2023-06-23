@@ -13,10 +13,7 @@ $(()=>{
             } else if ($(item).find('#status').attr('status') === 'started'){
                 $(item).addClass('ongoingJob');
                 ongoing.append($('<li>').html($('<a>').text($(title).text()).attr({'href': Settings.base_url+'proma/get_job/'+$(item).attr('id'), 'class': 'li', 'id': $(item).attr('id')})));
-            }else if ($(item).find('#status').attr('status') === 'stopped'){
-                overdue.append($('<li>').html($('<a>').text($(title).text()).attr({'href': Settings.base_url+'proma/get_job/'+$(item).attr('id'), 'class': 'li', 'id': $(item).attr('id')})));
-                $(item).addClass('overdueJob');
-            }
+            } 
        }); 
     }
    setBorders();
@@ -62,14 +59,25 @@ $(()=>{
             }
             $(item).find('#status').attr('status','done');
             $(item).addClass('completedJob');
-            completed.append($('<li>').html($('<a>').text($(title).text()).attr({'href': '#', 'class': 'li', 'id': $(item).attr('id')})));
-            ongoing.find('#' + $(item).attr('id')).parent().remove();
-            overdue.find('#' + $(item).attr('id')).parent().remove();
+            // completed.append($('<li>').html($('<a>').text($(title).text()).attr({'href': '#', 'class': 'li', 'id': $(item).attr('id')})));
+            // ongoing.find('#' + $(item).attr('id')).parent().remove();
+            // overdue.find('#' + $(item).attr('id')).parent().remove();
             
-        }
-
+        }        
+        let incomplete = quad === 0 || quad === 1 || quad === 2 || quad === 3;
         $(item).find('#end-date').text(date);
-        
+        if (Date.parse(date) < Date.parse(new Date()) && $(item).find('#status').attr('status') === 'started'){
+            overdue.append($('<li>').html($('<a>').text($(title).text()).attr({'href': Settings.base_url+'proma/get_job/'+$(item).attr('id'), 'class': 'li', 'id': $(item).attr('id')})));
+            $(item).addClass('overdueJob');
+            completed.find('#' + $(item).attr('id')).parent().remove();
+            ongoing.find('#' + $(item).attr('id')).parent().remove();
+        } else if (incomplete && Date.parse(date) < Date.parse(new Date()) && $(item).find('#status').attr('status') === 'done'){
+            overdue.append($('<li>').html($('<a>').text($(title).text()).attr({'href': Settings.base_url+'proma/get_job/'+$(item).attr('id'), 'class': 'li', 'id': $(item).attr('id')})));
+            $(item).addClass('overdueJob');
+            completed.find('#' + $(item).attr('id')).parent().remove();
+            ongoing.find('#' + $(item).attr('id')).parent().remove();
+            console.log(completed.find('#' + $(item).attr('id')).text());
+        }
         if (JSON.parse(data)['client']){
             let client = JSON.parse(data)['client']['fullname'];
             $(item).find('#client').text(client);

@@ -19,7 +19,7 @@
     <!-- scripts -->
     <script src="<?php echo base_url(); ?>assets/scripts/jquery-3.6.0.js"></script>
     <?php $i = 1; $k = 1;?>
-    <script src="<?php echo base_url(); ?>assets/scripts/update_job.js?version=11"></script>
+    <script src="<?php echo base_url(); ?>assets/scripts/update_job.js?version=13"></script>
   </head>
   <body>
     <?php $this->load->view("sidelinks/header"); ?>
@@ -43,7 +43,7 @@
           <div class="input-group mb-3">
             <span class="input-group-text">File</span>
             <input type="text" class="form-control" value="<?php echo $job->file; ?>" id="job-filename" disabled>
-            <span class="btn btn-primary input-group-text" id="download-job-file"><?php echo 'Download'; ?></span>
+            <a href="<?php echo base_url('Proma/download/'.$job->file.'/'.$job->id); ?>"><span class="btn btn-primary input-group-text" id="download-job-file"><?php echo 'Download'; ?></span></a>
           </div>
           <?php } ?>
           <select id="client" class="form-control form-select w-50">
@@ -80,7 +80,7 @@
                 <div class="input-group mb-3">
                   <span class="input-group-text">File</span>
                   <input type="text" class="form-control" value="<?php echo $task->file; ?>" id="task-file" disabled>
-                  <span class="btn btn-primary input-group-text change_task_file" id="download-task-file"><?php if (isset($task->file)) {echo 'Download';} else {echo 'No file';} ?></span>
+                  <a href="<?php if (isset($task->file)) {echo base_url('Proma/download/'.$task->file.'/'.$job->id);} ?>"><span class="btn btn-primary input-group-text change_task_file" id="download-task-file"><?php if (isset($task->file)) {echo 'Download';} else {echo 'No file';} ?></span></a>
                 </div>
                 <div class="input-group mb-3" id=sdate>
                   <span class=" input-group-text" id="">Start date</span>
@@ -99,20 +99,51 @@
                  </ul>
                 <hr>
                 <h5>Task <?php echo $i; ?> input</h5>
-                <?php $txts = explode('<>', $task->texts); foreach($txts as $txt){ ?>
+                <?php $txts = explode('<>', $task->texts); 
+                      $dtxts = $input[$task->id][0] ? explode('<>', $input[$task->id][0]->titles) : explode('<>', $input[$task->id][0]);
+                      $kv = [];
+                        foreach ($dtxts as $nv){ if ($nv){
+                          $kv[explode('_',$nv)[0]] = explode('_',$nv)[1];
+                        }} 
+                        foreach($kv as $k=>$v){ ?>
+                          <label><?php echo $k.':'; ?></label>
+                          <input type="text" class="form-control" value="<?php echo $v; ?>" disabled>
+                        <?php }
+                  foreach(array_diff($txts, array_keys($kv)) as $txt){ ?>
                 <div class="mb-3 texts">
                   <label><?php echo $txt; ?></label>
                   <input type="text" class="form-control task-text" aria-label="text" aria-describedby="email">
                 </div>
                 <?php } ?>
 
-                <?php $fls = explode('<>', $task->files); foreach($fls as $fl){ ?>
+                <?php $fls = explode('<>', $task->files); 
+                    if ($input[$task->id][4]) {$dfls = explode('<>', $input[$task->id][4]->titles); } else {$dfls = explode('<>', $input[$task->id][4]); }
+                    $kv = [];
+                      foreach ($dfls as $nv){ if ($nv){
+                        $kv[explode('_', explode(':',$nv)[0])[0]] = explode(':',$nv)[1];
+                      }}
+                      foreach($kv as $k=>$v){ ?>
+                        <label><?php echo $k.':'; ?></label>
+                        <input type="text" class="form-control" value="<?php echo $v; ?>" disabled>
+                        <a href="<?php echo base_url('Proma/download/'.$v.'/'.$job->id); ?>"><span class="btn btn-primary input-group-text change_task_file" id="<?php echo $v; ?>"><?php echo 'Download'; ?></span></a>
+                      <?php }
+                foreach(array_diff($fls, array_keys($kv)) as $fl){ ?>
                 <div class="mb-3">
                   <label><?php echo $fl; ?></label>
                   <input type="file"  class="form-control taskFile" aria-label="text" aria-describedby="email">
                 </div>
                 <?php } ?>
-                <?php $lngs = explode('<>', $task->longs); foreach($lngs as $lng){ ?>
+                <?php $lngs = explode('<>', $task->longs); 
+                      $dlongs = $input[$task->id][1] ? explode('<>', $input[$task->id][1]->titles) : explode('<>', $input[$task->id][1]);
+                      $kv = [];
+                        foreach ($dlongs as $nv){ if ($nv){
+                          $kv[explode('_',$nv)[0]] = explode('_',$nv)[1];
+                        }}
+                        foreach($kv as $k=>$v){ ?>
+                          <label><?php echo $k.':'; ?></label>
+                          <textarea class="form-control" value="<?php echo $v; ?>" disabled><?php echo $v; ?></textarea>
+                        <?php }
+                foreach(array_diff($lngs, array_keys($kv)) as $lng){ ?>
                 <div class="mb-3 long-texts">
                   <label><?php echo $lng; ?></label>
                   <textarea class="form-control"></textarea>
@@ -120,7 +151,19 @@
                 <?php } ?>
                 
                 <fieldset  class="mb-3" id=t_boxes>
-                <?php  $bxs = explode('<>', $task->boxes); foreach($bxs as $bx){ ?>
+                <?php  $bxs = explode('<>', $task->boxes); 
+                      $dbxs = $input[$task->id][2] ? explode('<>', $input[$task->id][2]->titles) : explode('<>', $input[$task->id][2]);
+                      $kv = [];
+                        foreach ($dbxs as $nv){ if ($nv){
+                          $kv[count($kv)] = $nv;
+                        }}
+                        foreach($kv as $k){ ?>
+                          <div class="form-check">
+                            <input type="checkbox" name=boxes class="form-check-input" value="<?php echo $k; ?>" id="check<?php echo $k; ?>" checked disabled>
+                            <label for="check<?php echo $k; ?>"><?php echo $k; ?></label>
+                          </div>
+                        <?php }
+                foreach(array_diff($bxs, $kv) as $bx){ ?>
                 <div class="form-check">
                   <input type="checkbox" name=boxes class="form-check-input" value="<?php echo $bx; ?>" id="check<?php echo $k; ?>">
                   <label for="check<?php echo $k; ?>"><?php echo $bx; ?></label>
@@ -129,16 +172,36 @@
                 </fieldset>
 
                 <fieldset class="mb-3" id=t_radios>
-                  <?php $rds = explode('<>', $task->radios); foreach($rds as $rd){ ?>
-                    <div class="form-check">
-                      <input type="radio" name=radios class="form-check-input" id="radio<?php echo $j; ?>" value="<?php echo $rd; ?>">
-                      <label class="form-check-label" for="radio<?php echo $j; ?>"><?php echo $rd; ?></label>
-                    </div>
-                  <?php $j++;} ?>
+                  <?php $rds = explode('<>', $task->radios); 
+                        $drds = $input[$task->id][3] ? explode('<>', $input[$task->id][3]->titles) : explode('<>', $input[$task->id][3]);
+                        $kv = [];
+                          foreach ($drds as $nv){ if ($nv){
+                            $kv[count($kv)] = $nv;
+                          }}
+                          foreach($kv as $k){ ?>
+                            <div class="form-check">
+                              <input type="radio" name=boxes class="form-check-input" value="<?php echo $k; ?>" id="radio<?php echo $k; ?>" checked disabled>
+                              <label for="radio<?php echo $k; ?>"><?php echo $k; ?></label>
+                            </div>
+                          <?php }
+                        foreach(array_diff($rds, $kv) as $rd){if (count($kv)){ ?>
+                          <div class="form-check">
+                            <input type="radio" name=radios class="form-check-input" id="radio<?php echo $j; ?>" value="<?php echo $rd; ?>" disabled>
+                            <label class="form-check-label" for="radio<?php echo $j; ?>"><?php echo $rd; ?></label>
+                          </div>
+                      <?php $j++;} else { ?>
+                        <div class="form-check">
+                        <input type="radio" name=radios class="form-check-input" id="radio<?php echo $j; ?>" value="<?php echo $rd; ?>">
+                        <label class="form-check-label" for="radio<?php echo $j; ?>"><?php echo $rd; ?></label>
+                      </div>
+                  <?php $j++;
+                      }} ?>
                 </fieldset>
                 <div class="form-check d-flex justify-content-end">
-                  <input type="checkbox" name="done-box" id="task-done<?= $i ?>" class="form-check-input" value="task_done">
-                  <label for="task-done<?= $i ?>">Task Done</done>
+                  <input type="checkbox" name="done-box" id="<?php echo $task->id; ?>" class="form-check-input" value="task_done"
+                  <?php if ($task->status == 'done'){ echo 'checked '; echo 'disabled';} ?>
+                  >
+                  <label for="<?php echo $task->id; ?>">Task done</done>
                 </div>
                 <br>
                   </div>

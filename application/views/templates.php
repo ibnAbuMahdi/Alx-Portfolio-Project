@@ -34,7 +34,8 @@
     
     <section>
       <div class="row gy-4">
-        <?php foreach ($temps as $id=>$temp) { ?>
+        <?php if(count($temps)){
+          foreach ($temps as $id=>$temp) { ?>
         <div class=col-6>
           <div class="card">
             <div class="card-body">
@@ -47,8 +48,18 @@
               <li class="list-group-item"><?php echo $title->title ?></li>
               <?php } ?>
             </ul>
-            <div class="card-footer text-muted">
+            <div class="card-footer text-muted d-flex justify-content-between">
               <a href='#'><?php echo $temp['file'] ?></a>
+              <a href="<?php echo base_url('proma/delete_template/'.$id); ?>" class="card-link btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+        <?php }} else { ?>
+          <div class=col-6 >
+          <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">No templates</h5>
+              <a href="" data-bs-toggle="modal" data-bs-target="#templateModal" class="btn btn-primary">Add job template</a>
             </div>
           </div>
         </div>
