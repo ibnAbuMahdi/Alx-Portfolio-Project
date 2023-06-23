@@ -61,7 +61,7 @@ aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
             <input type="text" class="form-control" name=email placeholder="Email address" aria-label="Email" aria-describedby="email">
           </div>
           <div class="input-group mb-3">
-            <input type="number" class="form-control" name=number placeholder="phone number" aria-label="Email" aria-describedby="email">
+            <input type="text" class="form-control" name=phone placeholder="phone number" aria-label="Email" aria-describedby="email">
           </div>
           <div class="input-group">
             <span class="input-group-text">Notes</span>

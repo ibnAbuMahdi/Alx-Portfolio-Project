@@ -35,7 +35,7 @@ class Proma extends CI_Controller{
         $data['id'] = uniqid();
         $data['fullname'] = $this->input->post('name');
         $data['email'] = $this->input->post('email');
-        $data['phone'] = $this->input->post('number');
+        $data['phone'] = $this->input->post('phone');
         $data['notes'] = $this->input->post('notes');
 
         $clients = $this->proma_model->create_client($data);
