@@ -32,7 +32,7 @@
     
   <div class="w-100 align-items-center justify-content-between flex-wrap">
       <div class="row gy-4">
-        <?php if (isset($clients)){ foreach ($clients as $row){ ?>
+        <?php if (count($clients)){ foreach ($clients as $row){ ?>
           <div class="col-6">
             <div class="card">
               <div class="card-body">
@@ -43,12 +43,22 @@
                 <li class="list-group-item"><?php echo $row->phone; ?></li>
                 <li class="list-group-item"><?php echo $row->email; ?></li>
               </ul>
-              <div class="card-body">
+              <div class="card-footer d-flex justify-content-between">
                 <a href="<?php echo base_url('proma/client_jobs/'.$row->id); ?>" class="card-link">Jobs</a>
+                <a href="<?php echo base_url('proma/delete_client/'.$row->id); ?>" class="card-link btn btn-danger">Delete</a>
               </div>
             </div>
         </div>
-        <?php }} ?>
+        <?php }} else { ?>
+          <div class=col-6 >
+          <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">No clients</h5>
+              <a href="" data-bs-toggle="modal" data-bs-target="#clientModal" class="btn btn-primary">Add a client</a>
+            </div>
+          </div>
+        </div>
+        <?php } ?>
     </div> 
   </div>
 

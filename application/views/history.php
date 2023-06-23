@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,6 +19,7 @@
     <!-- scripts -->
     <script src="<?php echo base_url(); ?>assets/scripts/jquery-3.6.0.js"></script>
     <?php $this->load->view("header_script"); ?>
+    <script src="<?php echo base_url(); ?>assets/scripts/jobs.js?version=12"></script>
   </head>
   <body>
       <?php $this->load->view("sidelinks/header"); ?>
@@ -57,43 +57,40 @@
         <div class=row>
         </div>
       <section>
+       
         <div class="row gy-4">
-          <div class=col-6 >
-            <div class="completedJob card">
-              <div class="card-header">
+          <?php if (count($jobs)){
+            foreach($jobs as $job) { ?>
+            <div class=col-6 >
+            <div id = "<?php echo $job->id; ?>" class="card job-card" >
+              <div id="card-header" val="<?php echo $job->clientId; ?>" class="card-header">
                 <div class=row>
-                  <div class=col-6>Client name</div>
-                  <div class="col-6 finishDate">08/25/2023</div>                
+                  <div class=col-6 id="client"></div>
+                  <div id="end-date" class="col-6"></div>                
                 </div>
               </div>
-              <div class="card-body">
-                <h5 class="card-title">Job title</h5>
-                <p class="card-text">Some description of the job, important notes or information.</p>
-                <a href="#" class="btn btn-primary">View job</a>
+              <div id="status" status=<?php echo $job->status; ?> class="card-body">
+                <h5 class="card-title"><?php echo $job->title; ?></h5>
+                <p class="card-text"><?php echo $job->notes; ?></p>
+                <a href="<?php echo site_url('proma/get_job/'.$job->id); ?>" class="btn btn-primary">View job</a>
               </div>
               <div class="progress mb-3">
-                <div class="progress-bar bg-success w-100 text-dark" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                <div class="progress-bar text-dark" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
               </div>
             </div>
           </div>
+         <?php }} else { ?>
           <div class=col-6 >
-            <div class="card overdueJob">
-              <div class="card-header">
-                <div class=row>
-                  <div class=col-6>Client name</div>
-                  <div class="col-6 finishDate">08/25/2023</div>                
-                </div>
-              </div>
+            <div class="card" >
               <div class="card-body">
-                <h5 class="card-title">Job title</h5>
-                <p class="card-text">Some description of the job, important notes or information.</p>
-                <a href="#" class="btn btn-primary">View job</a>
-              </div>
-              <div class="progress mb-3">
-                <div class="progress-bar w-75" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">75%</div>
+                <h5 class="card-title">No completed jobs</h5>
+                
+                <a href="<?php echo site_url('Proma/jobs/'); ?>" class="btn btn-primary">View current jobs</a>
               </div>
             </div>
           </div>
+         <?php }  ?>
+          
         </div>
       </section>        
     </div>
@@ -103,6 +100,8 @@
 
     <script src="<?php echo base_url(); ?>/assets/dist/js/bootstrap.bundle.min.js"></script>
 
-      
+    <script>
+      let Settings = {base_url: '<?= site_url() ?>'};
+    </script> 
   </body>
 </html>

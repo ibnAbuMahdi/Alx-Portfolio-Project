@@ -9,26 +9,29 @@ class Proma extends CI_Controller{
     }
     function index()
     {
-        $jobs = $this->proma_model->fetch_jobs();
-        $this->load->view("jobs", $jobs);
+        $this->load->view('landing_page');
     }
 
     public function jobs(){
-        return $this->index();
+        $email = $this->session->userdata('user_email');
+        $jobs = $this->proma_model->fetch_jobs($email);
+        $this->load->view("jobs", $jobs);
     }
     
     public function templates(){
-        $this->load->view('templates', array('temps' => $this->proma_model->fetch_templates()));
-        // load 'templates' with data
+        $email = $this->session->userdata('user_email');
+        $this->load->view('templates', array('temps' => $this->proma_model->fetch_templates($email)));
     }
     
     public function clients(){
-        $clients = $this->proma_model->create_client();
+        $email = $this->session->userdata('user_email');
+        $clients = $this->proma_model->create_client($email);
         $this->load->view('clients', array('clients'=>$clients));
     }
 
     public function history(){
-        $this->load->view('history');
+        $email = $this->session->userdata('user_email');
+        $this->load->view('history', $this->proma_model->fetch_jobs($email, true));
     }
 
     public function create_client(){
@@ -38,7 +41,9 @@ class Proma extends CI_Controller{
         $data['phone'] = $this->input->post('phone');
         $data['notes'] = $this->input->post('notes');
 
-        $clients = $this->proma_model->create_client($data);
+        $email = $this->session->userdata('user_email');
+
+        $clients = $this->proma_model->create_client($email, $data);
         $this->load->view('clients', array('clients'=>$clients));
     }
 
@@ -56,7 +61,7 @@ class Proma extends CI_Controller{
         foreach ($_FILES as $name => $value) {
             $fname = $_FILES[$name]['name'];
             $config = array(
-                'upload_path'=> './assets/',
+                'upload_path'=> './assets/images/',
                 'allowed_types' => 'png|pdf|doc|docx|jpg|jpeg|xlsx|xls|ppt',
                 'max_size' => 100000000
             );
@@ -74,7 +79,7 @@ class Proma extends CI_Controller{
         foreach ($_FILES as $name => $value) {
             $fname = $_FILES[$name]['name'];
             $config = array(
-                'upload_path'=> './assets/',
+                'upload_path'=> './assets/images/',
                 'allowed_types' => 'png|pdf|doc|docx|jpg|jpeg|xlsx|xls|ppt',
                 'max_size' => 100000000
             );
@@ -117,5 +122,62 @@ class Proma extends CI_Controller{
         $job = $this->input->post('job');
         echo $this->proma_model->update_job(json_decode($job, true));
         // echo $job;
+    }
+
+    public function delete_client(){
+        $id = $this->uri->segment(3);
+        $this->proma_model->delete_client($id);
+        redirect('Proma/clients', 'refresh');
+    }
+    public function delete_template(){
+        $id = $this->uri->segment(3);
+        $this->proma_model->delete_template($id);
+        redirect('Proma/templates', 'refresh');
+    }
+
+    public function create_user(){
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $password = md5(trim($password));
+        $resp = $this->proma_model->create_user($email, $password);
+        if($resp == 'success'){
+            $this->session->set_userdata('user_email', $email);
+            redirect('Proma/jobs');
+        }else if($resp == 'invalid'){
+            $this->session->set_flashdata('invalid email', 'yes');
+            redirect('Proma/index', 'refresh');   
+        }
+    }
+
+    public function sign_out(){
+        session_destroy();
+        redirect('Proma/index');
+    }
+
+    public function download(){
+        $file = $this->uri->segment(3);
+        if (file_exists('assets/images/'.$file)){
+            force_download('assets/images/'.$file, NULL);
+        } else {
+            $id = $this->uri->segment(4);
+            redirect('Proma/get_job/'.$id, 'refresh');
+        }
+    }
+
+    public function sign_in(){
+        $this->load->view('sign_in');
+    }
+
+    public function log_in(){
+        $email = $this->input->post('email');
+        $pword = $this->input->post('password');
+        $resp = $this->proma_model->log_in($email, $pword);
+        if ($resp){
+            $this->session->set_userdata('user_email', $email);
+            redirect('Proma/jobs');
+        } else {
+            $this->session->set_flashdata('invalid email pword', 'Password or email invalid!');
+            redirect('Proma/sign_in', 'refresh');   
+        }
     }
 }

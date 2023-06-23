@@ -19,29 +19,26 @@
           <a class="nav-link" id=history href="<?php echo base_url(); ?>proma/history">History</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
+      
       <div class="dropdown">
         <button class="btn btn-outline-success dropdown-toggle" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" >
         Create New</button>
-                  
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#clientModal">Client</a></li>
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templateModal">Template</a></li>
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#jobModal">Job</a></li>
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#clientModal">Client</a></li>
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templateModal">Template</a></li>
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#jobModal">Job</a></li>
         </ul>
       </div>
       <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="#">Sign-out</a>
+            <a class="nav-link" href="<?php echo base_url(); ?>proma/sign_out">Sign-out</a>
           </li>
       </ul>
     </div>
   </div>
 </nav>
 <div class="modal fade" id="clientModal" tabindex="-1" 
-aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+  aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">

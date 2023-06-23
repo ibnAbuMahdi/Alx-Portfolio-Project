@@ -54,17 +54,16 @@ $(()=>{
             let radios = {};
             let boxes = {};
             $(task).find('.texts').each((ix, item)=>{
-                texts[$(item).find('label:first').text()] = $(item).find('input[type="text"]:first').text();
+                texts[$(item).find('label:first').text()] = $(item).find('input[type="text"]:first').val();
             });
             $(task).find('.long-texts').each((ix, item)=>{
-                longs[$(item).find('label:first').text()] = $(item).find('textarea:first').text();
+                longs[$(item).find('label:first').text()] = $(item).find('textarea:first').val();
             });
             $(task).find('input[name="boxes"]:checked').each((ix, item)=>{
-                boxes[$(item).prev().text()] = $(item).text();
+                boxes[$(item).next().text()] = $(item).val();
             });
             radios[$(task).find('input[name="radios"]:checked').val()] = $(task).find('input[name="radios"]:checked').val();
-
-            task_o[Settings.jobId] = $(task).find('input[name="done-box"]:checked:first').val();
+            task_o[$(task).attr('id')] = $(task).find('input[name="done-box"]:checked:first').val();
             task_o['texts'] = texts;
             task_o['longs'] = longs;
             task_o['boxes'] = boxes;
@@ -112,6 +111,8 @@ $(()=>{
             }).promise().done(()=>{
                 job['files'] = fileNames;
                 updateJob();
+            }).done(()=>{
+                history.go(Settings.base_url+'/Proma/jobs');
             });
         }
     }
@@ -124,7 +125,7 @@ $(()=>{
             success: (data)=>{
                 console.log(data);
                 if (data == 'success') {
-                    alert('Job successfully created!'); 
+                    alert('Job successfully updated!'); 
                 }
                 job = {};
             },
