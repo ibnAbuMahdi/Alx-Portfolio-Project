@@ -78,7 +78,7 @@
     </div>
 
     <div class="b-example-divider"></div>
-    A description of what inspired the project. Make this is a personal story, and not “because Holberton required this project”. It is reasonable to include the timeline, and feel free to also mention this is a Portfolio Project for Holberton School with a link.
+    
   <div class="bg-dark text-secondary px-4 py-5 text-center">
     <div class="py-5">
       <h1 class="display-5 fw-bold text-white">About</h1>
