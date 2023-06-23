@@ -78,12 +78,12 @@
     </div>
 
     <div class="b-example-divider"></div>
-
+    A description of what inspired the project. Make this is a personal story, and not “because Holberton required this project”. It is reasonable to include the timeline, and feel free to also mention this is a Portfolio Project for Holberton School with a link.
   <div class="bg-dark text-secondary px-4 py-5 text-center">
     <div class="py-5">
       <h1 class="display-5 fw-bold text-white">About</h1>
       <div class="col-lg-6 mx-auto">
-        <p class="fs-5 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+        <p class="fs-5 mb-4"> A lot of self employed professionals I came accross like freelancers, local fashion designers, consultants, find it difficult to manage their jobs and clients. This is designed to solved that problem for them. It is also a portfolio project for the <a href="https://www.alxafrica.com/software-engineering/">Alx SE</a> software engineering program </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
           <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Custom button</button>
           <button type="button" class="btn btn-outline-light btn-lg px-4">Secondary</button>
