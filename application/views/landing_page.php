@@ -83,7 +83,7 @@
     <div class="py-5">
       <h1 class="display-5 fw-bold text-white">About</h1>
       <div class="col-lg-6 mx-auto">
-        <p class="fs-5 mb-4"> A lot of self employed professionals I came across like freelancers, local fashion designers, consultants, find it difficult to track and manage their jobs and clients. This is designed to solve that problem for them. It is also a portfolio project for the <a href="https://www.alxafrica.com/software-engineering/">Alx SE</a> software engineering program.</p>
+        <p class="fs-5 mb-4"> A lot of self-employed professionals I came across like freelancers, local fashion designers, consultants, find it difficult to track and manage their jobs and clients. This is designed to solve that problem for them. It is also a portfolio project for the <a href="https://www.alxafrica.com/software-engineering/">Alx SE</a> software engineering program.</p>
       </div>
     </div>
     <?php $this->load->view("sidelinks/footer"); ?>
