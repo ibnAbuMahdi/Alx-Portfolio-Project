@@ -9,16 +9,17 @@
 
 	To use it, simply sign-up on the app  [site](proma.abunabil.tech) and start creating jobs.
 
-	![landing page](landing1.png).
+	![landing page](landing.png).
 
 - Usage
 
 	Any professional that deals with multiple clients and/or multiple jobs at the same time can use this app. After signing up on the app site, you can start by creating a 	template in order to create a job. You can also create the client first and then create the template. A template can be used and customized to create jobs. A client can be assigned to a job.
 
-	[sign up page](signup.png)
+	![sign up page](new.png)
 
-	[create template](template.png)
+	![create template](create template.png)
 
+	![dashboard](landing1.png)
 
 - Contributing
 
