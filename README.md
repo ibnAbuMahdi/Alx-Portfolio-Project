@@ -9,7 +9,7 @@
 
 	To use it, simply sign-up on the app  [site](proma.abunabil.tech) and start creating jobs.
 
-[landing page](landing1.png).
+	![landing page](landing1.png).
 
 - Usage
 
