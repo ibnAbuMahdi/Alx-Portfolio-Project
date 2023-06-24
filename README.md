@@ -17,7 +17,7 @@
 
 	![sign up page](new.png)
 
-	![create template](create template.png)
+	![create template](create_template.png)
 
 	![dashboard](landing1.png)
 
